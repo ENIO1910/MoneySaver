@@ -7,7 +7,6 @@ use App\Http\Resources\BackupResource;
 use App\Models\Backup;
 use App\Models\Device;
 use App\Services\DashboardService;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class DashboardController extends Controller

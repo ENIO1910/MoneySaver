@@ -7,11 +7,8 @@ use App\Http\Requests\ExpenseStoreRequest;
 use App\Http\Resources\DeviceResource;
 use App\Http\Resources\ExpenseResource;
 use App\Models\Device;
-use App\Models\Expense;
-use App\Models\Wallet;
-use App\Services\ExpenseService;
 use App\Services\DeviceService;
-use Illuminate\Support\Facades\Request;
+use App\Services\ExpenseService;
 use Inertia\Inertia;
 
 class ExpenseController extends Controller
