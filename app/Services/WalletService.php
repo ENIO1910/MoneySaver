@@ -5,15 +5,16 @@ namespace App\Services;
 
 use App\Enums\Categories;
 use App\Models\Expense;
+use App\Models\Wallet;
 
-final class ExpenseService
+final class WalletService
 {
-    public function __construct(protected Expense $model) {}
+    public function __construct(protected Wallet $model) {}
     public function store($data): void
     {
         $data['user_id'] = auth()->user()->id;
-        $this->updateWallet($data['wallet_id'], $data['money']);
         $this->model->create($data);
+
     }
     public function updateWallet($walletId, $money):void
     {

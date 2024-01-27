@@ -87,7 +87,9 @@ const isOutsideClicked = (event) => {
         <AppConfig></AppConfig>
         <div class="layout-content-wrapper">
             <div class="layout-content">
-<!--                <AppBreadcrumb></AppBreadcrumb>-->
+                <Toast />
+
+                <!--                <AppBreadcrumb></AppBreadcrumb>-->
 
                 <slot />
 

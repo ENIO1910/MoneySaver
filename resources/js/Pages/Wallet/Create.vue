@@ -13,32 +13,20 @@ const props = defineProps({
 
 const errors = ref({})
 
-
-const categories = ref([
-    { name: 'Zakupy spożywcze', code: 'GROCERIES' },
-    { name: 'Kosmetyki', code: 'COSMETICS' },
-    { name: 'Opłaty', code: 'FEE' },
-    { name: 'Kredyt', code: 'CREDIT' },
-    { name: 'Rozrywka', code: 'ENTERTAINMENT' },
-    { name: 'Rozwój', code: 'DEVELOPMENT' },
-    { name: 'Nieprzewidziany wydatek', code: 'UNFORESEEN' },
-]);
-
 const form = useForm({
+    name: null,
     money: null,
-    category: null,
-    createdAt: new Date(),
 
 })
 const toast = useToast();
 
 
 const handleForm = () => {
-    form.post(route('expenses.store'), {
+    form.post(route('wallets.store'), {
         onSuccess: () => {
             form.money = null
             form.category = null
-            toast.add({ severity: 'info', summary: props.data, life: 3000 });
+            toast.add({ severity: 'info', summary: 'Udało się dodać portfel', life: 3000 });
         },
         onError: () => {
             toast.add({ severity: 'warn', summary: 'Coś poszło nie tak', detail: 'Sprawdź formularz', life: 3000 });
@@ -52,7 +40,6 @@ const handleForm = () => {
 <template>
     <AppLayout>
         <div class="grid">
-            <Toast />
 
             <div class="col-12">
                 <div class="card">
@@ -62,17 +49,16 @@ const handleForm = () => {
             <div class="col-12">
                 <div class="card mb-0">
                     <div class="flex flex-column justify-content-between mb-3">
-                        <label for="money" class="block text-900 text-xl font-medium mb-2">Koszt</label>
-                        <InputNumber id="money" type="text" :required="true" placeholder="Wpisz wartość paragonu" class="w-full md:w-30rem mb-2" inputClass="w-full" :inputStyle="{ padding: '1rem' }" v-model="form.money" />
+                        <label for="name" class="block text-900 text-xl font-medium mb-2">Nazwa portfela</label>
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-user" />
+                                <InputText  type="text" :required="true" placeholder="Wpisz nazwę portfela" class="w-full md:w-30rem"   v-model="form.name" />
+                            </span>
+                        <small class="error">{{form.errors.name}}</small>
+
+                        <label for="money" class="block text-900 text-xl font-medium mb-2 mt-2">Wartość portfela</label>
+                        <InputNumber id="money" ico type="text" :required="true" placeholder="Wpisz wartość paragonu" class="w-full md:w-30rem" inputClass="w-full" v-model="form.money" />
                         <small class="error">{{form.errors.money}}</small>
-
-                        <label for="password" class="block text-900 text-xl font-medium mb-2">Kategoria</label>
-                        <Dropdown v-model="form.category" :options="categories" optionLabel="name" option-value="code" placeholder="Wybierz kategorie" class="w-full md:w-30rem mb-2" inputClass="w-full" :inputStyle="{ padding: '1rem' }" />
-                        <small class="error">{{form.errors.category}}</small>
-
-                        <label for="password" class="block text-900 text-xl font-medium mb-2">Data</label>
-                        <Calendar v-model="form.createdAt" showIcon iconDisplay="input" class="w-full md:w-30rem mb-2" date-format="dd/mm/yy" inputClass="w-full" :inputStyle="{ padding: '1rem' }" />
-                        <small class="error">{{form.errors.createdAt}}</small>
 
                         <Button type="submit" @click="handleForm"  label="Dodaj " class="w-full p-3 text-xl mt-5"></Button>
                     </div>

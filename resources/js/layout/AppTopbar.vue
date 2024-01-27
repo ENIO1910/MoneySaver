@@ -71,23 +71,7 @@ const onSidebarButtonClick = () => {
         </div>
         <div class="topbar-end">
             <ul class="topbar-menu">
-                <li :class="isHorizontal ? 'topbar-search hidden' : 'topbar-search hidden sm:block'">
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <InputText type="text" placeholder="Search" class="w-12rem sm:w-full" />
-                    </span>
-                </li>
-                <li :class="isHorizontal ? 'block topbar-item' : 'block sm:hidden topbar-item'">
-                    <a v-styleclass="{ selector: '@next', enterClass: 'hidden', enterActiveClass: 'px-scalein', leaveToClass: 'hidden', leaveActiveClass: 'px-fadeout', hideOnOutsideClick: 'true' }" v-ripple>
-                        <Button type="button" icon="pi pi-search" text severity="secondary"></Button>
-                    </a>
-                    <ul :class="'hidden topbar-menu active-topbar-menu p-3 w-15rem  z-5'" style="bottom: -5.8rem">
-                        <span class="p-input-icon-left w-full">
-                            <i class="pi pi-search"></i>
-                            <InputText type="text" placeholder="Search" class="w-full" />
-                        </span>
-                    </ul>
-                </li>
+
                 <li class="topbar-item">
                     <a v-styleclass="{ selector: '@next', enterClass: 'hidden', enterActiveClass: 'px-scalein', leaveToClass: 'hidden', leaveActiveClass: 'px-fadeout', hideOnOutsideClick: 'true' }" v-ripple class="cursor-pointer">
                         <img class="border-round-xl" src="/layout/images/avatar-m-1.jpg" alt="Profile" />

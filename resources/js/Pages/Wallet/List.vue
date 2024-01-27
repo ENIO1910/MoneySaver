@@ -1,10 +1,18 @@
 <script setup>
 import AppLayout from "@/layout/AppLayout.vue";
 import {Link} from "@inertiajs/vue3";
+import {ref} from "vue";
 
 const props = defineProps({
     wallets: Object,
 })
+
+const items = ref([
+    {
+        label: 'Wypłać',
+        icon: 'pi pi-minus',
+    },
+]);
 
 
 </script>
@@ -16,8 +24,7 @@ const props = defineProps({
                     <div class="flex justify-content-between">
                         <h4 class="m-0"> Dodaj nowy portfel </h4>
                         <Link
-                            :href="route('expenses.create')"
-                            class=""
+                            :href="route('wallets.create')"
                         >
                             <Button class="m-0" icon="pi pi-plus" rounded label="Dodaj portfel" />
                         </Link>
@@ -33,11 +40,9 @@ const props = defineProps({
                         <Column header="Akcja" style="width: 20%">
                             <template #body="{data}">
                                 <div class="flex flex-wrap gap-2">
-                                    <a href="" class="mx-5">
-                                            <Button icon="pi pi-trash" text raised class="text-red-500" rounded aria-label="Bookmark" />
-                                    </a>
+                                    <SplitButton label="Wpłać" icon="pi pi-dollar" :model="items" class="p-button-info mr-5"></SplitButton>
                                     <a href="">
-                                        <Button icon="pi pi-pencil" severity="success" text raised class="text-blue-500" rounded aria-label="Bookmark" />
+                                        <Button icon="pi pi-trash" text raised class="text-red-500" rounded aria-label="Bookmark" />
                                     </a>
                                 </div>
                             </template>
