@@ -6,6 +6,7 @@ namespace App\Services;
 use App\Enums\Categories;
 use App\Models\Expense;
 use App\Models\Wallet;
+use Illuminate\Support\Facades\Gate;
 
 final class WalletService
 {
@@ -21,5 +22,12 @@ final class WalletService
         $wallet = auth()->user()->wallets()->where('id', $walletId)->first();
         $wallet->money -= $money;
         $wallet->save();
+    }
+
+    public function destroy(int $id): void
+    {
+        $model = Wallet::findOrFail($id);
+        Gate::authorize('delete', $model);
+        $model->delete();
     }
 }

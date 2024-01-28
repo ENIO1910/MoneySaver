@@ -28,11 +28,18 @@ class WalletController extends Controller
     }
 
 
-    public function store(WalletStoreRequest $request)
+    public function store(WalletStoreRequest $request): \Inertia\Response
     {
-        $result = $this->service->store($request->validated());
+        $this->service->store($request->validated());
         return Inertia::render('Wallet/List', [
-            'data' => $result,
+            'wallets' =>  WalletResource::collection(auth()->user()->wallets()->orderBy('id', 'asc')->get()),
+        ]) ;
+    }
+
+    public function destroy(int $id): \Inertia\Response
+    {
+        $this->service->destroy($id);
+        return Inertia::render('Wallet/List', [
             'wallets' =>  WalletResource::collection(auth()->user()->wallets()->orderBy('id', 'asc')->get()),
         ]) ;
     }

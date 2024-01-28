@@ -7,12 +7,20 @@ const props = defineProps({
     wallets: Object,
 })
 
+const isDeleteDialogVisible = ref(false);
+
 const items = ref([
     {
         label: 'Wypłać',
         icon: 'pi pi-minus',
     },
 ]);
+
+const deletedItemId = ref(null);
+const showDeleteDialog = (id) => {
+    deletedItemId.value = id;
+    isDeleteDialogVisible.value = true;
+};
 
 
 </script>
@@ -21,8 +29,17 @@ const items = ref([
         <div class="grid">
             <div class="col-12">
                 <div class="card">
+                    <Dialog v-model:visible="isDeleteDialogVisible" modal header="Usuń portfel" :style="{ width: '25rem' }">
+                        <p>Na pewno chcesz kontynuować?</p>
+                        <div class="flex justify-content-between mt-5 mx-2">
+                            <Button label="Wróć" @click="isDeleteDialogVisible = false" />
+                            <Link :href="route('wallets.destroy', {'id': deletedItemId})" method="delete">
+                                <Button label="Usuń" icon="pi pi-trash" @click="isDeleteDialogVisible = false" class="p-button-danger"/>
+                            </Link>
+                        </div>
+                    </Dialog>
                     <div class="flex justify-content-between">
-                        <h4 class="m-0"> Dodaj nowy portfel </h4>
+                        <h4 class="m-0"> Dodaj nowy portfel</h4>
                         <Link
                             :href="route('wallets.create')"
                         >
@@ -41,9 +58,7 @@ const items = ref([
                             <template #body="{data}">
                                 <div class="flex flex-wrap gap-2">
                                     <SplitButton label="Wpłać" icon="pi pi-dollar" :model="items" class="p-button-info mr-5"></SplitButton>
-                                    <a href="">
-                                        <Button icon="pi pi-trash" text raised class="text-red-500" rounded aria-label="Bookmark" />
-                                    </a>
+                                    <Button icon="pi pi-trash" text raised class="text-red-500" @click="showDeleteDialog(data.id)" rounded aria-label="Trash" />
                                 </div>
                             </template>
                         </Column>

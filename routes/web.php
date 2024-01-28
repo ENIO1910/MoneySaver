@@ -33,6 +33,8 @@ Route::post('expenses/create', [\App\Http\Controllers\ExpenseController::class, 
 Route::get('wallets', [\App\Http\Controllers\WalletController::class, 'index'])->middleware(['auth', 'verified'])->name('wallets.index');
 Route::get('wallets/create', [\App\Http\Controllers\WalletController::class, 'create'])->middleware(['auth', 'verified'])->name('wallets.create');
 Route::post('wallets', [\App\Http\Controllers\WalletController::class, 'store'])->middleware(['auth', 'verified'])->name('wallets.store');
+Route::delete('wallets/{id}', [\App\Http\Controllers\WalletController::class, 'destroy'])->middleware(['auth', 'verified'])->name('wallets.destroy');
+
 
 
 require __DIR__.'/auth.php';
