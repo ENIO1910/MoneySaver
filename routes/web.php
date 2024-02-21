@@ -29,6 +29,7 @@ Route::get('uikit/buttons', [\App\Http\Controllers\DashboardController::class, '
 Route::get('expenses', [\App\Http\Controllers\ExpenseController::class, 'index'])->middleware(['auth', 'verified'])->name('expenses.index');
 Route::get('expenses/create', [\App\Http\Controllers\ExpenseController::class, 'create'])->middleware(['auth', 'verified'])->name('expenses.create');
 Route::post('expenses/create', [\App\Http\Controllers\ExpenseController::class, 'store'])->middleware(['auth', 'verified'])->name('expenses.store');
+Route::get('expenses/edit', [\App\Http\Controllers\ExpenseController::class, 'edit'])->middleware(['auth', 'verified'])->name('expenses.edit');
 
 Route::get('wallets', [\App\Http\Controllers\WalletController::class, 'index'])->middleware(['auth', 'verified'])->name('wallets.index');
 Route::get('wallets/create', [\App\Http\Controllers\WalletController::class, 'create'])->middleware(['auth', 'verified'])->name('wallets.create');

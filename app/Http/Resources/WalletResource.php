@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Enums\Categories;
+use Cknow\Money\Money;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +19,7 @@ class WalletResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'money' => $this->money,
+            'money' => Money::PLN($this->money)->format('pl'),
             'created_at' => $this->created_at?->format('Y.m.d H:i:s')??'-',
         ];
     }

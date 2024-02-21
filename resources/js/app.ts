@@ -92,6 +92,7 @@ import TriStateCheckbox from 'primevue/tristatecheckbox';
 
 import BlockViewer from '@/Components/BlockViewer.vue';
 
+
 import '@/assets/styles.scss';
 
 
@@ -99,6 +100,13 @@ import { createApp, h, DefineComponent } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+
+import { library, dom } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fas);
+dom.watch();
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -200,7 +208,7 @@ createInertiaApp({
             .component('TreeSelect', TreeSelect)
             .component('TreeTable', TreeTable)
             .component('TriStateCheckbox', TriStateCheckbox)
-
+            .component('font-awesome-icon', FontAwesomeIcon)
             .component('BlockViewer', BlockViewer)
 
             .mount(el);

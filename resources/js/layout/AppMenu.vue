@@ -14,12 +14,12 @@ const model = ref([
             {
                 label: 'Wydatki',
                 url: route('expenses.index'),
-                icon: 'pi pi-fw pi-list',
+                icon: 'fas fa-exchange',
             },
             {
                 label: 'Portfele',
                 url: route('wallets.index'),
-                icon: 'pi pi-fw pi-list',
+                icon: 'fas fa-wallet',
             },
         ]
     },

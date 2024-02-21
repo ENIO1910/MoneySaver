@@ -46,11 +46,14 @@ const toast = useToast();
 
 
 const handleForm = () => {
-    form.post(route('expenses.store'), {
+    form.transform((data) => ({
+        ...data,
+        money: data.money * 100,
+    })).post(route('expenses.store'), {
         onSuccess: (data) => {
             form.money = null
             form.category = null
-            toast.add({ severity: 'success', summary: 'Udało się dodać wydatek', life: 3000 });
+            toast.add({ severity: 'info', summary: 'Udało się dodać portfel', life: 3000 });
         },
         onError: () => {
             toast.add({ severity: 'warn', summary: 'Coś poszło nie tak', detail: 'Sprawdź formularz', life: 3000 });

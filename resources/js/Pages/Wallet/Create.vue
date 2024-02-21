@@ -6,9 +6,6 @@ import { useToast } from "primevue/usetoast";
 
 
 
-const props = defineProps({
-    data: String,
-})
 
 
 const errors = ref({})
@@ -26,7 +23,7 @@ const handleForm = () => {
         onSuccess: () => {
             form.money = null
             form.category = null
-            toast.add({ severity: 'info', summary: 'Udało się dodać portfel', life: 3000 });
+            toast.add({ severity: 'success', summary: 'Udało się dodać portfel', life: 3000 });
         },
         onError: () => {
             toast.add({ severity: 'warn', summary: 'Coś poszło nie tak', detail: 'Sprawdź formularz', life: 3000 });
@@ -43,7 +40,7 @@ const handleForm = () => {
 
             <div class="col-12">
                 <div class="card">
-                    <h1>Dodaj nowy wydatek</h1>
+                    <h1>Dodaj nowy portfel</h1>
                 </div>
             </div>
             <div class="col-12">
@@ -57,7 +54,7 @@ const handleForm = () => {
                         <small class="error">{{form.errors.name}}</small>
 
                         <label for="money" class="block text-900 text-xl font-medium mb-2 mt-2">Wartość portfela</label>
-                        <InputNumber id="money" ico type="text" :required="true" placeholder="Wpisz wartość paragonu" class="w-full md:w-30rem" inputClass="w-full" v-model="form.money" />
+                        <InputNumber id="money" ico type="text" :required="true" placeholder="Wpisz stan portfela" class="w-full md:w-30rem" inputClass="w-full" v-model="form.money" />
                         <small class="error">{{form.errors.money}}</small>
 
                         <Button type="submit" @click="handleForm"  label="Dodaj " class="w-full p-3 text-xl mt-5"></Button>

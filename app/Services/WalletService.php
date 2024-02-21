@@ -4,7 +4,9 @@
 namespace App\Services;
 
 use App\Enums\Categories;
+use App\Http\Resources\MessageResource;
 use App\Models\Expense;
+use App\Models\Message;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\Gate;
 
@@ -17,11 +19,11 @@ final class WalletService
         $this->model->create($data);
 
     }
-    public function updateWallet($walletId, $money):void
+
+
+    public function updateWallet(int $money):void
     {
-        $wallet = auth()->user()->wallets()->where('id', $walletId)->first();
-        $wallet->money -= $money;
-        $wallet->save();
+
     }
 
     public function destroy(int $id): void

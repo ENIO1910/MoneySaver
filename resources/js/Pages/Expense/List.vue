@@ -27,9 +27,33 @@ const props = defineProps({
                     <h5>Historia wydatków</h5>
                     <DataTable :value="expenses.data" responsiveLayout="scroll">
                         <Column field="id" header="#" sortable style="width: 5%"></Column>
-                        <Column field="money" header="Wydatek" sortable style="width: 20%"></Column>
+                        <Column field="money" header="Wydatek" sortable style="width: 10%">
+                            <template #body="{data}">
+                                <Badge class="w-full" style="background: linear-gradient(90deg, #ce389d 0%, #ce3131 100%)" >
+                                    <span class="text-lg text-white">
+                                    {{data.money}}
+                                </span>
+                                </Badge>
+                            </template>
+                        </Column>
                         <Column field="category" header="Kategoria" sortable style="width: 20%"></Column>
-                        <Column field="created_at" header="Data" sortable style="width: 15%"></Column>
+                        <Column field="wallet.name" header="Konto" sortable style="width: 15%"></Column>
+                        <Column field="wallet.money" header="Stan konta" sortable style="width: 10%">
+                            <template #body="{data}">
+                                <Badge class="w-full" style="background: linear-gradient(90deg, #ce389d 0%, #ce3131 100%)" >
+                                    <span class="text-lg text-white">
+                                    {{data.wallet.money}}
+                                </span>
+                                </Badge>
+                            </template>
+                        </Column>
+                        <Column field="created_at" header="Data" sortable style="width: 15%">
+                            <template #body="{data}">
+                                <span class="flex w-full justify-content-center">
+                                    {{data.created_at}}
+                                </span>
+                            </template>
+                        </Column>
                         <Column header="Akcja" style="width: 20%">
                             <template #body="{data}">
                                 <div class="flex flex-wrap gap-2">
