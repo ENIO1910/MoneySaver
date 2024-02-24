@@ -13,10 +13,11 @@ final class ExpenseService
 
     public function store($data): void
     {
-        $data['user_id'] = auth()->user()->id;
         $this->updateWallet($data['wallet_id'], $data['money']);
         $data['money'] = $data['money'] * 100;
-        $this->model->create($data);
+        $expense = $this->model->make($data);
+        $expense->user()->associate(auth()->user());
+        $expense->save();
 
     }
 
@@ -27,7 +28,7 @@ final class ExpenseService
 
     public function updateWallet($walletId, $money):void
     {
-        $wallet = auth()->user()->wallets()->where('id', $walletId)->first();
+        $wallet = auth()->user()->wallets()->findOrFail($walletId);
         $wallet->money -= $money;
         $wallet->save();
     }

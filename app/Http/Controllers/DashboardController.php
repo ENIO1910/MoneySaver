@@ -19,7 +19,6 @@ class DashboardController extends Controller
         return Inertia::render('Dashboard/Show', [
             'lastBackupDate' => "Brak",
             'nextBackupDate' => "Brak",
-
             'backupsInProgressCount' => 0,
             'backupsSuccessCount' => 0,
             'backupsFailCount' => 0,

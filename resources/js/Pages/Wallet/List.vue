@@ -1,7 +1,8 @@
 <script setup>
 import AppLayout from "@/layout/AppLayout.vue";
-import {Link} from "@inertiajs/vue3";
+import {Link, router} from "@inertiajs/vue3";
 import {ref} from "vue";
+import DepositMoney from "@/Pages/Wallet/components/DepositMoney.vue";
 
 const props = defineProps({
     wallets: Object,
@@ -9,12 +10,13 @@ const props = defineProps({
 
 const isDeleteDialogVisible = ref(false);
 
-const items = ref([
-    {
-        label: 'Wypłać',
-        icon: 'pi pi-minus',
-    },
-]);
+const modalVisible = ref(false);
+const walletId = ref(null);
+const openDepositMoney = (id) => {
+    walletId.value = id
+    modalVisible.value = true;
+};
+
 
 const deletedItemId = ref(null);
 const showDeleteDialog = (id) => {
@@ -38,6 +40,8 @@ const showDeleteDialog = (id) => {
                             </Link>
                         </div>
                     </Dialog>
+                    <DepositMoney v-model:active="modalVisible" :walletId="walletId" />
+
                     <div class="flex justify-content-between">
                         <h4 class="m-0"> Dodaj nowy portfel</h4>
                         <Link
@@ -57,7 +61,7 @@ const showDeleteDialog = (id) => {
                         <Column header="Akcja" style="width: 20%">
                             <template #body="{data}">
                                 <div class="flex flex-wrap gap-2">
-                                    <SplitButton label="Wpłać" icon="pi pi-dollar" :model="items" class="p-button-info mr-5"></SplitButton>
+                                    <Button label="Wpłać" icon="pi pi-dollar" @click="openDepositMoney(data.id)" class="p-button-info mr-5"></Button>
                                     <Button icon="pi pi-trash" text raised class="text-red-500" @click="showDeleteDialog(data.id)" rounded aria-label="Trash" />
                                 </div>
                             </template>

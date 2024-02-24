@@ -37,7 +37,7 @@ const form = useForm({
 const walletAmount = computed(() => {
     if(form.wallet_id !== null && props.wallets !== undefined) {
         const selectedWallet = props.wallets.find(wallet => wallet.id === form.wallet_id);
-        return selectedWallet?.money || 0;
+        return selectedWallet?.money / 100 || 0;
     }
     return 0;
 });
@@ -64,7 +64,6 @@ const handleForm = () => {
 <template>
     <AppLayout>
         <div class="grid">
-
             <div class="col-12">
                 <div class="card">
                     <div class="flex justify-content-between">
@@ -100,7 +99,7 @@ const handleForm = () => {
                         <Calendar v-model="form.createdAt" showIcon iconDisplay="input" class="w-full md:w-30rem mb-2" date-format="dd/mm/yy" inputClass="w-full" :inputStyle="{ padding: '1rem' }" />
                         <small class="error">{{form.errors.createdAt}}</small>
 
-                        <Button type="submit" @click="handleForm"  label="Dodaj " class="w-full p-3 text-xl mt-5"></Button>
+                        <Button :loading="form.processing" type="submit" @click="handleForm"  label="Dodaj " class="w-full p-3 text-xl mt-5"></Button>
                     </div>
                 </div>
             </div>

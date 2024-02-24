@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ExpenseStoreRequest;
+use App\Http\Requests\WalletDepositRequest;
 use App\Http\Requests\WalletStoreRequest;
 use App\Http\Resources\WalletResource;
 use App\Models\Wallet;
@@ -28,12 +29,11 @@ class WalletController extends Controller
     }
 
 
-    public function store(WalletStoreRequest $request): \Inertia\Response
+    public function store(WalletStoreRequest $request): \Illuminate\Http\RedirectResponse
     {
         $this->service->store($request->validated());
-        return Inertia::render('Wallet/List', [
-            'wallets' =>  WalletResource::collection(auth()->user()->wallets()->orderBy('id', 'asc')->get()),
-        ]) ;
+        return to_route('wallets.index');
+
     }
 
     public function destroy(int $id): \Inertia\Response
@@ -43,4 +43,11 @@ class WalletController extends Controller
             'wallets' =>  WalletResource::collection(auth()->user()->wallets()->orderBy('id', 'asc')->get()),
         ]) ;
     }
+
+    public function deposit(WalletDepositRequest $request, int $walletId): \Illuminate\Http\RedirectResponse
+    {
+        $this->service->deposit($walletId, $request->validated());
+        return to_route('wallets.index');
+    }
+
 }

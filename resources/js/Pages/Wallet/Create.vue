@@ -57,7 +57,7 @@ const handleForm = () => {
                         <InputNumber id="money" ico type="text" :required="true" placeholder="Wpisz stan portfela" class="w-full md:w-30rem" inputClass="w-full" v-model="form.money" />
                         <small class="error">{{form.errors.money}}</small>
 
-                        <Button type="submit" @click="handleForm"  label="Dodaj " class="w-full p-3 text-xl mt-5"></Button>
+                        <Button type="submit" :loading="form.processing" @click="handleForm"  label="Dodaj " class="w-full p-3 text-xl mt-5"></Button>
                     </div>
                 </div>
             </div>

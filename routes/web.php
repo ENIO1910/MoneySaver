@@ -34,7 +34,9 @@ Route::get('expenses/edit', [\App\Http\Controllers\ExpenseController::class, 'ed
 Route::get('wallets', [\App\Http\Controllers\WalletController::class, 'index'])->middleware(['auth', 'verified'])->name('wallets.index');
 Route::get('wallets/create', [\App\Http\Controllers\WalletController::class, 'create'])->middleware(['auth', 'verified'])->name('wallets.create');
 Route::post('wallets', [\App\Http\Controllers\WalletController::class, 'store'])->middleware(['auth', 'verified'])->name('wallets.store');
-Route::delete('wallets/{id}', [\App\Http\Controllers\WalletController::class, 'destroy'])->middleware(['auth', 'verified'])->name('wallets.destroy');
+Route::post('wallets/{walletId}', [\App\Http\Controllers\WalletController::class, 'deposit'])->middleware(['auth', 'verified'])->name('wallets.deposit');
+Route::get('wallets/{walletId}', [\App\Http\Controllers\WalletController::class, 'depositStore'])->middleware(['auth', 'verified'])->name('wallets.show');
+Route::delete('wallets/{walletId}', [\App\Http\Controllers\WalletController::class, 'destroy'])->middleware(['auth', 'verified'])->name('wallets.destroy');
 
 
 

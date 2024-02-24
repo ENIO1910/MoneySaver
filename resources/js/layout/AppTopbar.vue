@@ -1,9 +1,10 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import {ref, onMounted, onBeforeUnmount, computed} from 'vue';
 import { useLayout } from '@/layout/composables/layout';
 import AppSidebar from '@/layout/AppSidebar.vue';
 import { usePrimeVue } from 'primevue/config';
-import { Link } from '@inertiajs/vue3';
+import {Link, usePage} from '@inertiajs/vue3';
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 const $primevue = usePrimeVue();
 
@@ -14,6 +15,7 @@ const { isHorizontal, onMenuToggle, showConfigSidebar, showSidebar } = useLayout
 
 const outsideClickListener = ref(null);
 const topbarMenuActive = ref(false);
+const authUser = computed(() => usePage().props.auth.user);
 
 onMounted(() => {
     bindOutsideClickListener();
@@ -72,9 +74,10 @@ const onSidebarButtonClick = () => {
         <div class="topbar-end">
             <ul class="topbar-menu">
 
-                <li class="topbar-item">
-                    <a v-styleclass="{ selector: '@next', enterClass: 'hidden', enterActiveClass: 'px-scalein', leaveToClass: 'hidden', leaveActiveClass: 'px-fadeout', hideOnOutsideClick: 'true' }" v-ripple class="cursor-pointer">
-                        <img class="border-round-xl" src="/layout/images/avatar-m-1.jpg" alt="Profile" />
+                <li class="topbar-item mr-5">
+                    <a v-styleclass="{ selector: '@next', enterClass: 'hidden', enterActiveClass: 'px-scalein', leaveToClass: 'hidden', leaveActiveClass: 'px-fadeout', hideOnOutsideClick: 'true' }" v-ripple class="cursor-pointer text-xl">
+                        {{authUser.name}}
+                        <FontAwesomeIcon :icon="['fas', 'chevron-down']"></FontAwesomeIcon>
                     </a>
                     <ul :class="'topbar-menu active-topbar-menu p-4 w-15rem z-5 hidden'">
                         <li role="menuitem" class="m-0 mb-3">
@@ -113,12 +116,6 @@ const onSidebarButtonClick = () => {
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <Button type="button" icon="pi pi-cog" class="flex-shrink-0" text severity="secondary" @click="onConfigButtonClick()"></Button>
-                </li>
-                <li>
-                    <Button type="button" icon="pi pi-arrow-left" class="flex-shrink-0" text severity="secondary" @click="onSidebarButtonClick()"></Button>
                 </li>
             </ul>
         </div>

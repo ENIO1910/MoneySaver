@@ -44,15 +44,20 @@ const submit = () => {
                     </svg>
                 </a>
                 <div class="flex flex-column">
-                    <span class="p-input-icon-left w-full mb-4">
-                        <i class="pi pi-envelope"></i>
-                        <InputText v-model="form.email" id="email" type="text" class="w-full md:w-25rem text-color-secondary surface-50 border-200" placeholder="Email" />
+                    <span class="mb-4">
+                        <span class="p-input-icon-left w-full">
+                            <i class="pi pi-envelope"></i>
+                            <InputText v-model="form.email" id="email" type="text" class="w-full md:w-25rem text-color-secondary surface-50 border-200" placeholder="Email" />
+                        </span>
+                        <small class="text-red-600">{{form.errors.email}}</small>
                     </span>
-                    <span class="p-input-icon-left w-full mb-4">
-                        <i class="pi pi-lock"></i>
-                        <InputText v-model="form.password" id="password" type="password" class="w-full md:w-25rem text-color-secondary surface-50 border-200" placeholder="Password" />
+                    <span class="mb-4">
+                        <span class="p-input-icon-left w-full">
+                            <i class="pi pi-lock"></i>
+                            <InputText v-model="form.password" id="password" type="password" class="w-full md:w-25rem text-color-secondary surface-50 border-200" placeholder="Password" />
+                        </span>
+                        <small class="text-red-600">{{form.errors.password}}</small>
                     </span>
-
                     <Button @click="submit" label="Sign Up" class="w-full mb-4"></Button>
                     <a :href="route('password.request')" class="font-medium text-sm text-300">forget password?</a>
                     <p class="font-medium text-400 m-0 mt-6">Don’t you have an account, <Link class="font-semibold cursor-pointer text-900 hover:text-primary transition-colors transition-duration-300" :href="route('register')"> sing up </Link> </p>

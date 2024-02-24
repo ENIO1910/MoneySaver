@@ -32,4 +32,11 @@ final class WalletService
         Gate::authorize('delete', $model);
         $model->delete();
     }
+
+    public function deposit(int $walletId, array $data): void
+    {
+        $model = Wallet::findOrFail($walletId);
+        Gate::authorize('update', $model);
+        $model->update(['money' => $model->money + $data['money']]);
+    }
 }

@@ -103,7 +103,7 @@ const handleForm = () => {
                         <Calendar v-model="form.createdAt" showIcon iconDisplay="input" class="w-full md:w-30rem mb-2" date-format="dd/mm/yy" inputClass="w-full" :inputStyle="{ padding: '1rem' }" />
                         <small class="error">{{form.errors.createdAt}}</small>
 
-                        <Button type="submit" @click="handleForm"  label="Dodaj " class="w-full p-3 text-xl mt-5"></Button>
+                        <Button type="submit" :loading="form.processing" @click="handleForm"  label="Dodaj " class="w-full p-3 text-xl mt-5"></Button>
                     </div>
                 </div>
             </div>

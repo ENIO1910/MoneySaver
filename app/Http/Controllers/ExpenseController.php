@@ -32,10 +32,10 @@ class ExpenseController extends Controller
 
     public function store(ExpenseStoreRequest $request)
     {
-        $result = $this->service->store($request->validated());
-        return Inertia::render('Expense/Create', [
-            'wallets' => auth()->user()->wallets,
-        ]) ;
+        $this->service->store($request->validated());
+        return to_route('expenses.create');
+
+
     }
 
     public function show(Expense $expense)
