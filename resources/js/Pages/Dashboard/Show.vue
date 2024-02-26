@@ -1,7 +1,20 @@
 <script setup>
 
 import AppLayout from "@/layout/AppLayout.vue";
-import { ref, onMounted } from "vue";
+import {ref, onMounted, computed} from "vue";
+
+const props = defineProps({
+    categories: Object,
+    thisMonthStats: Object
+})
+
+
+const thisMonthStats = computed(() => {
+    return props.thisMonthStats;
+});
+
+const categories = thisMonthStats.value.categories;
+const total = thisMonthStats.value.total
 
 onMounted(() => {
     chartData.value = setChartData();
@@ -11,63 +24,50 @@ onMounted(() => {
 const chartData = ref();
 const chartOptions = ref();
 
+const dataValues = Object.values(categories);
+
+const amountList = dataValues.map(item => item.amount);
+const labels = dataValues.map(item => item.description);
 const setChartData = () => {
     const documentStyle = getComputedStyle(document.documentElement);
 
     return {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: labels,
         datasets: [
             {
-                label: 'First Dataset',
-                data: [65, 59, 80, 81, 56, 55, 40],
+                data: amountList,
                 fill: false,
-                borderColor: documentStyle.getPropertyValue('--blue-500'),
+                label: '',
+                borderColor: documentStyle.getPropertyValue('--gray-500'),
+                backgroundColor: [
+                    '#1055ab',
+                    '#2CA58D',
+                    '#84BC9C',
+                    '#C2DDCA',
+                    '#FFFDF7',
+                    '#F46197',
+                    '#cc131c'
+                ],
+                hoverBackgroundColor: [documentStyle.getPropertyValue('#0A2342')],
+
                 tension: 0.4
             },
-            {
-                label: 'Second Dataset',
-                data: [28, 48, 40, 19, 86, 27, 90],
-                fill: false,
-                borderColor: documentStyle.getPropertyValue('--pink-500'),
-                tension: 0.4
-            }
         ]
     };
 };
 const setChartOptions = () => {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
     return {
-        maintainAspectRatio: false,
-        aspectRatio: 0.6,
         plugins: {
             legend: {
                 labels: {
-                    color: textColor
-                }
-            }
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: textColorSecondary
+                    usePointStyle: true,
+                    color: textColor,
                 },
-                grid: {
-                    color: surfaceBorder
-                }
             },
-            y: {
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder
-                }
-            }
-        }
+        },
     };
 }
 const date = ref();
@@ -76,22 +76,33 @@ const date = ref();
 
 <template>
     <AppLayout>
-        <div class="col-12">
-            <div class="card">
-                <h1>Dashboard</h1>
-            </div>
-            <div class="card">
-                <h2>Wydatki</h2>
-                <div class="flex xl:flex-row flex-column">
-                    <div class="col-12 xl:col-5">
-                        <Calendar v-model="date" inline showWeek />
-                    </div>
-                    <div class="col-12 xl:col-7">
-                        <Chart type="line" :data="chartData" :options="chartOptions" class="h-30rem" />
-                    </div>
+        <div class="grid">
+            <div class="col-12">
+                <div class="card">
+                    <h1>Dashboard</h1>
                 </div>
-            </div>
+                <div class="card">
+                    <h2>Podsumowanie miesiąca</h2>
+                    <div class="grid col-12">
+                        <div class="col-12 text-center xl:col-6">
+                            <Calendar class="my-5" v-model="date" inline showWeek />
+                        </div>
+                        <div class="col-12 xl:col-6">
+                            <Chart type="pie" :data="chartData" :options="chartOptions"  class="h-30rem w-full flex justify-content-center"></Chart>
+                        </div>
+                    </div>
+                    <div class="flex justify-content-center  mt-5">
+                        <h3>Suma wydatków w tym miesiącu</h3>
+                    </div>
+                    <Badge class="w-full h-5rem" style="background: linear-gradient(90deg, #38ce83 0%, #31ce46 100%)" >
+                        <span class="text-lg text-white flex align-items-center justify-content-center h-full">
+                                {{total}} PLN
+                        </span>
+                    </Badge>
+                </div>
 
+            </div>
         </div>
+
     </AppLayout>
 </template>

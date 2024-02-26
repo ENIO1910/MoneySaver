@@ -57,13 +57,9 @@ const props = defineProps({
                         <Column header="Akcja" style="width: 20%">
                             <template #body="{data}">
                                 <div class="flex flex-wrap gap-2">
-                                    <a href="">
-                                        <Button icon="pi pi-pencil" severity="success" text raised class="text-blue-500" rounded aria-label="Bookmark" />
-                                    </a>
                                     <a href="" class="ml-5">
                                             <Button icon="pi pi-trash" text raised class="text-red-500" rounded aria-label="Bookmark" />
                                     </a>
-
                                 </div>
                             </template>
                         </Column>

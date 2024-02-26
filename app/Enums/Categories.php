@@ -24,4 +24,7 @@ enum Categories : string {
         };
     }
 
+    public static function getDescriptions(): array {
+        return array_map(fn($value) => $value->getDescription(), self::cases());
+    }
 }

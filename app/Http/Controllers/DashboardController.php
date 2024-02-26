@@ -7,21 +7,20 @@ use App\Http\Resources\BackupResource;
 use App\Models\Backup;
 use App\Models\Device;
 use App\Services\DashboardService;
+use App\Services\ExpenseService;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
-    public function __construct(protected DashboardService $service) {}
+    public function __construct(protected DashboardService $dashboardService,
+    protected ExpenseService $expenseService) {}
 
     public function __invoke()
     {
 
         return Inertia::render('Dashboard/Show', [
-            'lastBackupDate' => "Brak",
-            'nextBackupDate' => "Brak",
-            'backupsInProgressCount' => 0,
-            'backupsSuccessCount' => 0,
-            'backupsFailCount' => 0,
+            'categories' => Categories::getDescriptions(),
+            'thisMonthStats' => $this->expenseService->getThisMonthStats(),
         ]);
     }
 
